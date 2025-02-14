@@ -31,6 +31,8 @@ x_cds=[]
 y=[]
 exact_value = differentiation(x)
 
+# Exact value visualization
+
 for i in range(0,10):
     y.append((step))
     fds_val = fds(x, step)
@@ -48,6 +50,8 @@ for i in range(0,10):
     print(fds_error, bds_error, cds_error, step)
 
     step= step-0.05
+
+# Log scale results for better visualization
 
 # for i in range(0,8):
 #     y.append(np.log10(step))
