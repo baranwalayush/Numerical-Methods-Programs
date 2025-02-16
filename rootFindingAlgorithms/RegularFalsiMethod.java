@@ -3,6 +3,11 @@ import java.util.function.Function;
 class RegularFalsiMethod{
 
     // Parameters
+    // a & b are the intial points with opposite value of func(x) and b>a
+    // tolerance is the allowed difference value between a & b
+    // maxIterations is the maximum number of iterations allowed
+    // func is the function for which root is to be finded
+
     private double a, b, tolerance;
     private int maxIterations;
     Function<Double, Double> function;
@@ -31,7 +36,7 @@ class RegularFalsiMethod{
             x2 = (a*function.apply(b) - b*function.apply(a)) / (function.apply(b) - function.apply(a));
             double fx2 = function.apply(x2);
 
-            if (fx2 == 0.0 || Math.abs(b - a) / 2 < tolerance) {
+            if (fx2 == 0.0) {
                 break; // Found exact root or within tolerance
             }
 
@@ -48,8 +53,8 @@ class RegularFalsiMethod{
     }
 
     public static void main(String[] args) {
-        Function<Double, Double> func = x -> x*x - 10*x + 9;
-        RegularFalsiMethod solver = new RegularFalsiMethod(func, 0, 3, 0.0001, 100);
+        Function<Double, Double> func = x -> Math.cos(x) + 2*x;
+        RegularFalsiMethod solver = new RegularFalsiMethod(func, -1, 2, 0.0001, 100);
         double root = solver.findRoot();
         System.out.println("Root found at: " + root);
     }
