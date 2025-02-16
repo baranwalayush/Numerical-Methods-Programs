@@ -20,11 +20,12 @@ class LangrangeMethod{
     public double findValue(){
         
         double value = 0;
-        double sz = x_arr.length;
 
         if(x_arr.length != y_arr.length){
             throw new IllegalArgumentException("Unequal Length: x_arr and y_arr must have same length.");
         }
+
+        double sz = x_arr.length;
 
         for(int i=0; i<sz; i++){
             double numerator = 1;
