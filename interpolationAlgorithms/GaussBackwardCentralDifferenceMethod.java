@@ -1,4 +1,4 @@
-class GaussForwardCentralDifferenceMethod{
+class GaussBackwardCentralDifferenceMethod{
     
     // Works better for interpolating point lying in between (central) of total data points
     // Only applicable for equal interval data points
@@ -10,7 +10,7 @@ class GaussForwardCentralDifferenceMethod{
     private double[][] y; 
 
     // Constructors
-    public GaussForwardCentralDifferenceMethod(double x, double[] x_arr, double[] y_arr){
+    public GaussBackwardCentralDifferenceMethod(double x, double[] x_arr, double[] y_arr){
         this.x = x;
         this.x_arr = x_arr;
         this.y_arr = y_arr;
@@ -24,7 +24,7 @@ class GaussForwardCentralDifferenceMethod{
     }
 
     // Implement Algorithm
-
+    
     private void generateDiffTable() {
 
         for (int i=1; i < sz; i++) {
@@ -36,7 +36,7 @@ class GaussForwardCentralDifferenceMethod{
 
     public void printDifferenceTable() {
         
-        System.out.println("The Gauss Forward Difference Table is: ");
+        System.out.println("The Gauss Backward Difference Table is: ");
         
         int n = x_arr.length;
         for (int i = 0; i < n; i++) {
@@ -47,17 +47,17 @@ class GaussForwardCentralDifferenceMethod{
         }
     }
 
-    private double calculate_ncr(double p, int n) {
+    private double calculate(double p, int n) {
 	
 	    double temp = p;
 
 	    for(int i=1; i<n; i++) {
 		
 		    if(i % 2 == 1){
-			    temp *= (p - i);
+			temp *= (p + ((i + 1) / 2));
 		    }
 		    else{
-			    temp *= (p + i);
+			temp *= (p - (i / 2));
 		    }
 	    }
 
@@ -79,20 +79,25 @@ class GaussForwardCentralDifferenceMethod{
         double h = (x_arr[1] - x_arr[0]);
         double p = (x - x_arr[(int) (sz / 2)]) / h;
 	
-	// System.out.println("p = " + p);
-	if(p>1 || p<0) {
-		System.out.println("p = " + p);
-		System.out.println("Gauss Forward Central Interpolation Method is not preferred for these data points as p is not between 0 and 1. The final result may not be correct.");
-	}
+        if(p<-1 || p>0) {
+            System.out.println("p = " + p);
+            System.out.println("Gauss Backward Central Interpolation Method is not preferred for these data points as p is not between -1 and 0. The final result may not be accurate.");
+        }
+
         long fact = 1;
+	    int count = 1;
 
         for(int i=1; i<sz; i++) {
 
-            double temp = calculate_ncr(p, i);
+            double temp = calculate(p, i);
 
-            value += (temp * y[(int)((sz - i) / 2)][i]) / fact ;
+            value += (temp * y[(int)(sz / 2) - count][i]) / fact ;
 
-            fact *= (i+1);
+            if(i % 2 == 0){
+                count++;
+            }
+
+            fact *= (i + 1);
         }
 
         return value;
@@ -102,14 +107,14 @@ class GaussForwardCentralDifferenceMethod{
     // Main function
     public static void main(String[] args){
         
-        double[] x_arr = {21, 25, 29, 33, 37};
-        double[] y_arr = {18.478, 17.8144, 17.1070, 16.3432, 15.5154};
-        double x = 30;
+        double[] x_arr = {1901, 1911, 1921, 1931, 1941, 1951};
+        double[] y_arr = {12, 15, 20, 27, 39, 52};
+        double x = 1936;
 
-        GaussForwardCentralDifferenceMethod interpolate = new GaussForwardCentralDifferenceMethod(x, x_arr, y_arr);
+        GaussBackwardCentralDifferenceMethod interpolate = new GaussBackwardCentralDifferenceMethod(x, x_arr, y_arr);
         double value = interpolate.findValue();
 
-        interpolate.printDifferenceTable();
+        interpolate.printDifferenceTable(); // Print Difference Table
         
         System.out.println("Value at " + x + " is " + value);
     }
