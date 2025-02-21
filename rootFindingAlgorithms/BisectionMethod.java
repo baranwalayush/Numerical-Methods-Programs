@@ -2,8 +2,8 @@ import java.util.function.Function;
 
 class BisectionMethod {
 
-    // Prameters:
-    // a & b are the intial points with opposite value of func(x) and b>a
+    // Parameters:
+    // a & b are the initial points with opposite value of func(x) and b>a
     // tolerance is the allowed difference value between a & b
     // maxIterations is the maximum number of iterations allowed
     // func is the function for which root is to be finded
@@ -32,7 +32,7 @@ class BisectionMethod {
             mid = (a + b) / 2;
             double fMid = function.apply(mid);
 
-            if (fMid == 0.0 || Math.abs(b - a) / 2 < tolerance) {
+            if (fMid == 0.0 || Math.abs(b - a) < tolerance) {
                 break; // Found exact root or within tolerance
             }
 
@@ -49,8 +49,12 @@ class BisectionMethod {
     }
 
     public static void main(String[] args) {
-        Function<Double, Double> func = x -> x*x - 10*x + 9;
-        BisectionMethod solver = new BisectionMethod(5, 10, 0.0001, 100, func);
+
+        // Function<Double, Double> func = x -> x*x - 10*x + 9;
+        // BisectionMethod solver = new BisectionMethod(5, 10, 0.0001, 100, func);
+
+        Function<Double, Double> func = x -> 2 - x + Math.log(x);
+        BisectionMethod solver = new BisectionMethod(1, 4, 0.0001, 100, func);
         double root = solver.findRoot();
         System.out.println("Root found at: " + root);
     }

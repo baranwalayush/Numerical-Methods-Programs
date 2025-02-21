@@ -1,4 +1,6 @@
 *.class
 *.exe
+*.idea
+*.iml
 /bin/
 /out/
