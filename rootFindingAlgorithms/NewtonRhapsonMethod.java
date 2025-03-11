@@ -2,12 +2,13 @@ import java.util.function.Function;
 
 class NewtonRhapsonMethod{
 
-    // Parameters
-    // x0 is an initial value of x for which the f(x0) is close to zero
-    // tolerance is the allowed difference value between actual root and solution
-    // maxIterations is the maximum number of iterations allowed
-    // func is the function for which root is to be finded
-    // derivFunc is the derivation of func
+    /* @params
+    x0: initial value of x for which the f(x0) is close to zero
+    tolerance: allowed difference value between actual root and solution
+    maxIterations: maximum number of iterations allowed
+    func; function for which root is to be finded
+    derivFunc: derivation of func
+    */ 
     private double x0, tolerance;
     private int maxIterations;
     Function<Double, Double> function;
