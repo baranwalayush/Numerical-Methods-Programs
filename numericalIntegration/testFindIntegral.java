@@ -34,5 +34,15 @@ public class testFindIntegral {
         method5.find();
         method5.printResult();
 
+        // Gauss Quadrature 2nd order
+        findIntegral method6 = new GaussQuadrature(func);
+        method6.find();
+        method6.printResult();
+
+        // Gauss Quadrature 3rd order
+        findIntegral method7 = new GaussQuadrature(func, 3);
+        method7.find();
+        method7.printResult();
+
     }
 }
