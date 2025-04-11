@@ -37,5 +37,18 @@ public class testODESolver {
             t += h;
         }
 
+
+        System.out.println("\nUsing MidPoint's Method");
+        ODESolver solver3 = new MidpointMethod(function);
+
+        double[] result3 = solver3.solve(t0, y0, tEnd, h);
+
+        System.out.println("\nTime\tValue");
+        t = t0;
+        for (double val : result3) {
+            System.out.printf("%.4f\t%.6f%n", t, val);
+            t += h;
+        }
+
     }
 }
